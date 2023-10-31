@@ -1,2 +1,6 @@
 # MiniGungeon
-게임 제작 강의용 프로젝트
+
+강의 출처
+
+- https://youtu.be/hgDquKjtA-I?si=TYHJoKvRX3i8z6-r
+  
