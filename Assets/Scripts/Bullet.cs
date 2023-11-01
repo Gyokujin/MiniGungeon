@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Wall")
+        if (collision.tag == "Wall" || collision.tag == "Enemy")
         {
             gameObject.SetActive(false);
         }
