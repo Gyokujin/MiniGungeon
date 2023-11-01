@@ -4,20 +4,34 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Move")]
     public float speed = 3;
     private Vector3 move;
 
     [Header("Component")]
     private SpriteRenderer sprite;
     private Animator animator;
+    private BulletPool bulletPool;
 
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        bulletPool = GetComponent<BulletPool>();
     }
 
     void Update()
+    {
+        MoveInput();
+        Shoot();
+    }
+
+    void FixedUpdate()
+    {
+        Move();
+    }
+
+    void MoveInput()
     {
         move = Vector3.zero;
 
@@ -30,7 +44,7 @@ public class PlayerController : MonoBehaviour
         {
             move += Vector3.right;
         }
-        
+
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
         {
             move += Vector3.up;
@@ -60,8 +74,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Move()
     {
         transform.Translate(move * speed * Time.fixedDeltaTime);
+    }
+
+    void Shoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            worldPos.z = 0;
+            Vector3 direction = worldPos - transform.position;
+            GameObject newBullet = bulletPool.Get();
+
+            if (newBullet != null)
+            {
+                newBullet.transform.position = transform.position + (Vector3.down * 0.5f);
+                newBullet.GetComponent<Bullet>().Direction = direction;
+            }
+        }
     }
 }
