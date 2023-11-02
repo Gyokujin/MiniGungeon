@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
     void AfterDying()
     {
-        SceneManager.LoadScene("GameOver");
+        GameManager.instance.GameOver();
     }
 
     void OnCollisionEnter2D(Collision2D collision)

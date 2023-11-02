@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public static class Score
+{
+    public static float score;
+}
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance = null;
+
     [Header("Player")]
     [SerializeField]
     private GameObject player;
@@ -29,7 +37,6 @@ public class GameManager : MonoBehaviour
     [Header("System")]
     [SerializeField]
     private TextMeshProUGUI scoreText;
-    private float score;
 
     [Header("Component")]
     private ObjectPool enemyPool;
@@ -37,19 +44,20 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         enemyPool = GetComponent<ObjectPool>();
+        instance = this;
     }
 
     void Start()
     {
         afterLastSpawnTime = 0;
-        score = 0;
+        Score.score = 0;
     }
 
     void Update()
     {
         afterLastSpawnTime += Time.deltaTime;
-        score += Time.deltaTime;
-        scoreText.text = ((int)score).ToString();
+        Score.score += Time.deltaTime;
+        scoreText.text = ((int)Score.score).ToString();
 
         if (afterLastSpawnTime > spawnTerm)
         {
@@ -72,5 +80,10 @@ public class GameManager : MonoBehaviour
         GameObject newEnemy = enemyPool.Get();
         newEnemy.transform.position = new Vector3(xPos, yPos, 0);
         newEnemy.GetComponent<EnemyController>().Spawn(player);
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 }
