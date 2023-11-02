@@ -19,6 +19,8 @@ public class EnemyController : MonoBehaviour
 
     [Header("Action")]
     [SerializeField]
+    private float spawnTime = 1f;
+    [SerializeField]
     private float dieTime = 1.4f;
     private GameObject target;
     [SerializeField]
@@ -30,20 +32,32 @@ public class EnemyController : MonoBehaviour
 
     [Header("Component")]
     private SpriteRenderer sprite;
+    private Collider2D collider;
     private Animator animator;
     private Character character;
 
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        collider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         character = GetComponent<Character>();
     }
 
-    void Start()
+    public void Spawn(GameObject target)
     {
-        target = GameObject.Find("Player");
+        character.Init();
+        collider.enabled = false;
+        animator.SetTrigger("Spawn");
+        this.target = target;
+        state = State.Spawning;
+        Invoke("StartMoving", spawnTime);
+    }
+
+    void StartMoving()
+    {
         state = State.Moving;
+        collider.enabled = true;
     }
 
     void FixedUpdate()
@@ -100,12 +114,13 @@ public class EnemyController : MonoBehaviour
     void Die()
     {
         state = State.Dying;
+        collider.enabled = false;
         animator.SetTrigger("Die");
         Invoke("AfterDying", dieTime);
     }
 
     void AfterDying()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

@@ -8,7 +8,7 @@ public class Character : MonoBehaviour
     private float maxHP = 3;
     private float hp;
 
-    void Start()
+    public void Init()
     {
         hp = maxHP;
     }

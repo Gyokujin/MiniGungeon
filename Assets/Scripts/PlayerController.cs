@@ -11,13 +11,13 @@ public class PlayerController : MonoBehaviour
     [Header("Component")]
     private SpriteRenderer sprite;
     private Animator animator;
-    private BulletPool bulletPool;
+    private ObjectPool bulletPool;
 
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        bulletPool = GetComponent<BulletPool>();
+        bulletPool = GetComponent<ObjectPool>();
     }
 
     void Update()
