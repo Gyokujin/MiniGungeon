@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6285431979138074075}
   - component: {fileID: 6285431979138074072}
   - component: {fileID: 6285431979138074054}
-  - component: {fileID: 6285431979138074073}
   - component: {fileID: 6285431979138074055}
+  - component: {fileID: 6285431979138074073}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -146,23 +146,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6285431979138074073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6285431979138074076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8cbf9f5b402cb746909bcc240bfd373, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  dieTime: 1.4
-  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  flashMaterial: {fileID: 2100000, guid: 96f036452e696e74f92040e08f600a0d, type: 2}
-  flashTime: 0.5
 --- !u!114 &6285431979138074055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +159,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 3
+--- !u!114 &6285431979138074073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285431979138074076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8cbf9f5b402cb746909bcc240bfd373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  spawnTime: 1
+  dieTime: 1.4
+  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  flashMaterial: {fileID: 2100000, guid: 96f036452e696e74f92040e08f600a0d, type: 2}
+  flashTime: 0.5

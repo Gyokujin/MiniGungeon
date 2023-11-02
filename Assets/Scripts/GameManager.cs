@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Player")]
     [SerializeField]
     private GameObject player;
 
@@ -25,6 +27,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float minYPos = -4.85f;
 
+    [Header("System")]
+    [SerializeField]
+    private TextMeshProUGUI scoreText;
+    private float score;
+
     [Header("Component")]
     private ObjectPool enemyPool;
 
@@ -36,11 +43,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         afterLastSpawnTime = 0;
+        score = 0;
     }
 
     void Update()
     {
         afterLastSpawnTime += Time.deltaTime;
+        score += Time.deltaTime;
+        scoreText.text = ((int)score).ToString();
 
         if (afterLastSpawnTime > spawnTerm)
         {

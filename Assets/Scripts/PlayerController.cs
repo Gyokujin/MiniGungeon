@@ -8,15 +8,28 @@ public class PlayerController : MonoBehaviour
     public float speed = 3;
     private Vector3 move;
 
+    [Header("Action")]
+    [SerializeField]
+    private float flashTime = 0.5f;
+    [SerializeField]
+    private float dieTime = 0.875f;
+
+    [SerializeField]
+    private Material defaultMaterial;
+    [SerializeField]
+    private Material flashMaterial;
+
     [Header("Component")]
     private SpriteRenderer sprite;
     private Animator animator;
+    private Character character;
     private ObjectPool bulletPool;
 
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        character = GetComponent<Character>();
         bulletPool = GetComponent<ObjectPool>();
     }
 
@@ -92,6 +105,43 @@ public class PlayerController : MonoBehaviour
             {
                 newBullet.transform.position = transform.position + (Vector3.down * 0.5f);
                 newBullet.GetComponent<Bullet>().Direction = direction;
+            }
+        }
+    }
+
+    void Flash()
+    {
+        sprite.material = flashMaterial;
+        Invoke("AfterFlash", flashTime);
+    }
+
+    void AfterFlash()
+    {
+        sprite.material = defaultMaterial;
+    }
+
+    void Die()
+    {
+        animator.SetTrigger("Die");
+        Invoke("AfterDying", dieTime);
+    }
+
+    void AfterDying()
+    {
+        // gameObject.SetActive(false);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (character.Hit(1))
+            {
+                Flash();
+            }
+            else
+            {
+                Die();
             }
         }
     }
