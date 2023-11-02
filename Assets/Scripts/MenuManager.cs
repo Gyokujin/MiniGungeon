@@ -5,7 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField]
+    private float startDelay = 1f;
+
     public void GameStart()
+    {
+        Invoke("StartProcess", startDelay);
+    }
+
+    void StartProcess()
     {
         SceneManager.LoadScene("GameScene");
     }

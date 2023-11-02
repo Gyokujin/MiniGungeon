@@ -30,10 +30,17 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float flashTime = 0.5f;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip hitClip;
+    [SerializeField]
+    private AudioClip dieClip;
+
     [Header("Component")]
     private SpriteRenderer sprite;
     private Collider2D collider;
     private Animator animator;
+    private AudioSource audio;
     private Character character;
 
     void Awake()
@@ -41,6 +48,7 @@ public class EnemyController : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
         character = GetComponent<Character>();
     }
 
@@ -103,6 +111,7 @@ public class EnemyController : MonoBehaviour
     void Flash()
     {
         sprite.material = flashMaterial;
+        audio.PlayOneShot(hitClip);
         Invoke("AfterFlash", flashTime);
     }
 
@@ -116,6 +125,7 @@ public class EnemyController : MonoBehaviour
         state = State.Dying;
         collider.enabled = false;
         animator.SetTrigger("Die");
+        audio.PlayOneShot(dieClip);
         Invoke("AfterDying", dieTime);
     }
 

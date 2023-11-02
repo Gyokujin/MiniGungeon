@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     private float fasterSpawnTerm = 0.05f;
     [SerializeField]
     private float minSpawnTerm = 1;
-    [SerializeField]
     private float afterLastSpawnTime;
     [SerializeField]
     private float maxXPos = 11.5f;
